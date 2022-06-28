@@ -88,12 +88,12 @@ class Demo(nn.Module):
                 img_target = self.vid_target[:, i, :, :, :]
                 img_recon = self.gen(self.img_source, img_target, h_start)
                 # step 1: convert it to [0 ,2]
-                tensor_image = img_recon +1
+                tensor_image = (img_recon +1)/2.0
 
  # step 2: convert it to [0 ,1]
-                tensor_image = tensor_image - tensor_image.min()
-                tensor_image_0_1 = tensor_image / (tensor_image.max() - tensor_image.min())
-                save_image(tensor_image_0_1, '/content/LIA/res/img%6d.jpg' % i)
+                #tensor_image = tensor_image - tensor_image.min()
+                #tensor_image_0_1 = tensor_image / (tensor_image.max() - tensor_image.min())
+                save_image(tensor_image, '/content/LIA/res/img%6d.jpg' % i)
                 vid_target_recon.append(img_recon.unsqueeze(2))
 
             vid_target_recon = torch.cat(vid_target_recon, dim=2)
